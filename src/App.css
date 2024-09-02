@@ -1,0 +1,226 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+/* Estilo base para el Navbar */
+.navbar {
+  background-color: #ffffff; /* Fondo blanco limpio */
+  border-bottom: 1px solid #e0e0e0; /* Borde inferior sutil */
+  padding: 15px 20px; /* Espaciado interno */
+  display: flex;
+  justify-content: space-between; /* Espacia los elementos a los extremos */
+  align-items: center; /* Centra verticalmente los elementos */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Estilo para el contenedor de enlaces */
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilo para los enlaces */
+.navbar-menu li {
+  margin-right: 20px;
+}
+
+.navbar-menu a {
+  color: #333; /* Color del texto en un gris oscuro */
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+/* Estilo de hover para los enlaces */
+.navbar-menu a:hover {
+  color: #1d72b8; /* Color azul suave al pasar el ratón */
+}
+
+/* Estilo para el botón del carrito */
+.navbar .btn {
+  background-color: #1d72b8; /* Azul suave */
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px; /* Botón redondeado */
+  border: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.navbar .btn:hover {
+  background-color: #155a8a; /* Azul un poco más oscuro al pasar el ratón */
+}
+
+/* Estilo para el logo (si tienes uno) */
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333; /* Mismo gris oscuro */
+  text-decoration: none;
+}
+
+.navbar-brand:hover {
+  color: #1d72b8; /* Mismo azul suave */
+}
+
+.card {
+  border: 10px solid #332f2f;
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  max-width: 100%;
+  height: auto;
+}
+
+.card-body {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  margin-bottom: 10px;
+  font-size: 1em;
+}
+
+.card-price {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.card-ingredients {
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.btn {
+  margin: 5px;
+  width: 100px; /* Añade un ancho fijo a los botones para alinearlos */
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.pizza-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card-pizza {
+  width: 300px;
+  border: 1px solid #d4d0d0;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pizza-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-top: 20px; /* Espaciado superior */
+}
+
+.section-title {
+  background-image: url('./assets/Pizzeria-Florence-Ali-di-Firenze-5.jpeg'); /* Reemplaza con la ruta correcta */
+  background-size: cover; /* Ajusta la imagen para cubrir todo el contenedor */
+  background-position: center; /* Centra la imagen */
+  padding: 20px; /* Espaciado interno */
+  color: white; /* Color del texto */
+  font-size: 2rem; /* Tamaño de la fuente */
+  font-weight: bold; /* Negrita */
+  text-align: center; /* Centrar el texto */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-group button {
+  background-color: #d48d4b; /* Azul suave */
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 0 2px; /* Espaciado entre los botones */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-group button:hover {
+  background-color: #155a8a; /* Azul más oscuro al hacer hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra en hover */
+}
+
+.btn-group button:active {
+  background-color: #0f3d5a; /* Azul aún más oscuro al hacer click */
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra interior en click */
+}
