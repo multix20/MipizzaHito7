@@ -1,44 +1,45 @@
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUser, faSignInAlt, faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { CartContext } from '../context/CartContext';
 
-import PropTypes from 'prop-types';
+const Navbar = () => {
+    const { getTotal } = useContext(CartContext);
+    const totalPrice = getTotal();
 
-const Navbar = ({ total }) => (
-  <nav className="navbar">
-    <Link to="/" className="navbar-brand">
-      Mamma Mía
-    </Link>
-    <ul className="navbar-menu">
-      <li>
-        <Link to="/">
-          <FontAwesomeIcon icon={faHome} /> Inicio
-        </Link>
-      </li>
-      <li>
-        <Link to="/register">
-          <FontAwesomeIcon icon={faUser} /> Registrarse
-        </Link>
-      </li>
-      <li>
-        <Link to="/login">
-          <FontAwesomeIcon icon={faSignInAlt} /> Iniciar sesión
-        </Link>
-      </li>
-      <li>
-        <Link to="/profile">
-          <FontAwesomeIcon icon={faUser} /> Perfil
-        </Link>
-      </li>
-    </ul>
-    <button className="btn">
-      <FontAwesomeIcon icon={faCartShopping} /> Total: ${total}
-    </button>
-  </nav>
-);
-
-Navbar.propTypes = {
-  total: PropTypes.number.isRequired,
+    return (
+        <nav className="navbar">
+            <Link to="/" className="navbar-brand">
+                Mamma Mía
+            </Link>
+            <ul className="navbar-menu">
+                <li>
+                    <Link to="/">
+                        <FontAwesomeIcon icon={faHome} /> Inicio
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/register">
+                        <FontAwesomeIcon icon={faUser} /> Registrarse
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/login">
+                        <FontAwesomeIcon icon={faSignInAlt} /> Iniciar sesión
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/profile">
+                        <FontAwesomeIcon icon={faUser} /> Perfil
+                    </Link>
+                </li>
+            </ul>
+            <Link to="/cart" className="btn">
+                <FontAwesomeIcon icon={faCartShopping} /> Total: ${totalPrice.toFixed(2)}
+            </Link>
+        </nav>
+    );
 };
 
 export default Navbar;

@@ -1,47 +1,55 @@
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { CartContext } from '../context/CartContext';
 
-function Cart({ cart, incrementQuantity, decrementQuantity }) {
-  // Función para calcular el total de la compra
-  const calculateTotal = () => {
-    return cart.reduce((total, pizza) => total + pizza.price * pizza.quantity, 0);
-  };
+const Cart = () => {
+    const { cart, addToCart, removeFromCart, getTotal } = useContext(CartContext);
 
-  return (
-    <div className="cart">
-      <h2>Tu Carrito</h2>
-      <ul>
-        {cart.map((pizza) => (
-          <li key={pizza.id}>
-            <img src={pizza.img} alt={pizza.name} width="50" />
-            <span>{pizza.name} - ${pizza.price.toLocaleString()}</span>
-            <span> x {pizza.quantity}</span>
-            <div>
-              <button onClick={() => incrementQuantity(pizza.id)}>+</button>
-              <button onClick={() => decrementQuantity(pizza.id)}>-</button>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <h3>Total: ${calculateTotal().toLocaleString()}</h3>
-      <button className="btn btn-primary">Pagar</button>
-    </div>
-  );
-}
+    console.log(cart); // Verifica si el estado del carrito se está cargando
 
-// Define las PropTypes para validar las props que se pasan al componente
-Cart.propTypes = {
-  cart: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
-      img: PropTypes.string.isRequired,
-      quantity: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-  incrementQuantity: PropTypes.func.isRequired,
-  decrementQuantity: PropTypes.func.isRequired,
+    // Función para incrementar la cantidad de un producto en el carrito
+    const incrementQuantity = (pizza) => {
+        addToCart(pizza);
+    };
+
+    // Función para decrementar la cantidad de un producto en el carrito
+    const decrementQuantity = (pizzaId) => {
+        const pizza = cart.find(item => item.id === pizzaId);
+        if (pizza.quantity > 1) {
+            pizza.quantity -= 1;
+            removeFromCart(pizzaId); // Remueve el producto y vuelve a agregarlo con la cantidad actualizada
+            addToCart(pizza);
+        } else {
+            removeFromCart(pizzaId);
+        }
+    };
+
+    return (
+        <div className="cart-container">
+            <h2>Tu Carrito</h2>
+            {cart.length === 0 ? (
+                <p>Tu carrito está vacío</p>
+            ) : (
+                <div>
+                    {cart.map((pizza) => (
+                        <div key={pizza.id} className="cart-item">
+                            <img src={pizza.img} alt={pizza.name} />
+                            <div>
+                                <h4>{pizza.name}</h4>
+                                <p>Precio: ${pizza.price.toFixed(2)}</p>
+                                <p>Cantidad: {pizza.quantity}</p>
+                                <div className="btn-group">
+                                    <button onClick={() => incrementQuantity(pizza)}>+</button>
+                                    <button onClick={() => decrementQuantity(pizza.id)}>-</button>
+                                    <button onClick={() => removeFromCart(pizza.id)} className="btn btn-danger">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                    <h3>Total: ${getTotal().toFixed(2)}</h3>
+                </div>
+            )}
+        </div>
+    );
 };
 
 export default Cart;
