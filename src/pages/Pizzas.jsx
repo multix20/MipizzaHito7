@@ -1,40 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-// eslint-disable-next-line no-unused-vars
-const dummy = React;
-
-function Pizza() {
+const Pizza = () => {
+  const { id } = useParams(); // Obtiene el id de la pizza desde la URL
   const [pizza, setPizza] = useState(null);
-  const pizzaId = 'p001'; // ID fijo por ahora
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Realiza la petición GET a la API para obtener la información de la pizza por ID
-    fetch(`http://localhost:5000/api/pizzas/${pizzaId}`)
-      .then(response => response.json())
-      .then(data => setPizza(data))
-      .catch(error => console.error('Error fetching pizza:', error));
-  }, [pizzaId]);
+    const fetchPizza = async () => {
+      try {
+        // Asegúrate de que el id en la URL corresponda al id de la API (como p001, p002, etc.)
+        const response = await fetch(`http://localhost:5000/api/pizzas/${id}`);
 
-  // Maneja el caso en que los datos aún no se han cargado
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        setPizza(data);
+      } catch (error) {
+        console.error("Error fetching pizza:", error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPizza();
+  }, [id]);
+
+  if (loading) {
+    return <div>Cargando pizza...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   if (!pizza) {
-    return <p>Cargando...</p>;
+    return <div>No se encontró la pizza.</div>;
   }
 
   return (
-    <div className="pizza-details">
-      <h2>{pizza.name}</h2>
-      <img src={pizza.img} alt={pizza.name} width="300" />
-      <p>Precio: ${pizza.price.toLocaleString()}</p>
-      <p>Ingredientes:</p>
+    <div>
+      <h1>{pizza.name}</h1>
+      <p>{pizza.desc}</p>
+      <p>Precio: ${pizza.price}</p>
+      <img src={pizza.img} alt={pizza.name} />
+      <h3>Ingredientes:</h3>
       <ul>
         {pizza.ingredients.map((ingredient, index) => (
           <li key={index}>{ingredient}</li>
         ))}
       </ul>
-      <p>{pizza.description}</p>
-      <button className="btn btn-primary">Añadir al Carrito</button>
     </div>
   );
-}
+};
 
 export default Pizza;
